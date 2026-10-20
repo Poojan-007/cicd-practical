@@ -1,0 +1,24 @@
+name: CI Pipeline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run sample program
+        run: python hello.py
+
+      - name: Verify program
+        run: python -c "assert 'Hello, CI/CD!' in open('hello.py').read()"
